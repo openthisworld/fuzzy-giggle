@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_eip" "web_server_ip" {
-  instance = aws_instance.web_server.id
+#  instance = aws_instance.web_server.id
   vpc      = true
 }
 
