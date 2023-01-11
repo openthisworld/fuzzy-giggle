@@ -6,7 +6,7 @@ resource "aws_eip" "web_server_ip" {}
 
 resource "aws_eip_association" "web_server_ip_assoc" {
   instance_id = aws_instance.web_server.id
-  allocation_id = aws_eip.web_web_server_ip.id
+  allocation_id = aws_eip.web_server_ip.id
 }
 
 resource "aws_vpc" "main_vpc" {
