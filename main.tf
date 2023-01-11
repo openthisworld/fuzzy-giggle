@@ -42,8 +42,7 @@ resource "aws_instance" "web_server" {
   instance_type = "t2.micro"
   subnet_id = aws_subnet.main_subnet.id
   vpc_security_group_ids = [aws_security_group.sg_website.id]
-  depends_on = [aws_security_group.sg_website]
-  depends_on = [aws_eip_association.web_server_ip_assoc]
+  depends_on = [aws_security_group.sg_website, aws_eip_association.web_server_ip_assoc]
   associate_public_ip_address = false
   private_ip = aws_eip.web_server_ip.private_ip
 }
