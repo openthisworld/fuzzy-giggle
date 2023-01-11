@@ -1,0 +1,2 @@
+[webservers]
+{{EC2_IP}}
