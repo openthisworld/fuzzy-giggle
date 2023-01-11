@@ -2,6 +2,13 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_eip" "web_server_ip" {}
+
+resource "aws_eip_association" "web_server_ip_assoc" {
+  instance_id = aws_instance.web_server.id
+  allocation_id = aws_eip.web_web_server_ip.id
+}
+
 resource "aws_vpc" "main_vpc" {
   cidr_block = "10.0.0.0/16"
 }
@@ -36,4 +43,6 @@ resource "aws_instance" "web_server" {
   subnet_id = aws_subnet.main_subnet.id
   vpc_security_group_ids = [aws_security_group.sg_website.id]
   depends_on = [aws_security_group.sg_website]
+  associate_public_ip_address = false
+  private_ip = aws_eip.web_server_ip.private_ip
 }
