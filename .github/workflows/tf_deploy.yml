@@ -1,0 +1,36 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Install Terraform
+      run: |
+        VERSION=$(curl --silent https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[].version' | sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n | egrep -v 'beta|rc' | tail -1)
+        wget "https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip"
+        unzip "terraform_${VERSION}_linux_amd64.zip"
+        sudo mv "terraform" /usr/local/bin/
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Plan Terraform
+      run: terraform plan
+
+    - name: Apply Terraform
+      run: terraform apply
+      env:
+        TF_IN_AUTOMATION: "true"
