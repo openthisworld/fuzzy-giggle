@@ -1,9 +1,9 @@
 terraform {
-  backend "remote" {
+  cloud {
     organization = "example-org-627f89"
 
     workspaces {
-      name = "fuzzy-giggle"
+      name = "fuzzy-giggle_v2"
     }
   }
 }
