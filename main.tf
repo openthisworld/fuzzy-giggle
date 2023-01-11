@@ -33,6 +33,6 @@ resource "aws_instance" "web_server" {
   ami = "ami-0ff8a91507f77f867"
   instance_type = "t2.micro"
   subnet_id = aws_subnet.main_subnet.id
-  security_groups = [aws_security_group.sg_website.name.id]
+  security_groups_id = [aws_security_group.sg_website.name.id]
   depends_on = [aws_security_group.sg_website]
 }
