@@ -4,12 +4,19 @@ provider "aws" {
 
 resource "aws_eip" "web_server_ip" {
 #  instance = aws_instance.web_server.id
+#  depends_on = [aws_internet_gateway.igw]
   vpc      = true
 }
 
 resource "aws_eip_association" "web_server_ip_ass" {
   instance_id = aws_instance.web_server.id
   allocation_id = aws_eip.web_server_ip.id
+  vpc = true
+  depends_on = [aws_internet_gateway.igw]
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main_vpc.id
 }
 
 resource "aws_vpc" "main_vpc" {
