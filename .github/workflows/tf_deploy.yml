@@ -41,5 +41,10 @@ jobs:
 
     - name: Apply Terraform
       run: terraform apply -auto-approve
+      
+      
+    - name: Destroy Terraform
+      run: terraform -force
+      
       env:
         TF_IN_AUTOMATION: "true"
