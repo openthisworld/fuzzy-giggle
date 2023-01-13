@@ -44,7 +44,7 @@ jobs:
       
       
     - name: Destroy Terraform
-      run: terraform -force
+      run: terraform destroy -force
       
       env:
         TF_IN_AUTOMATION: "true"
