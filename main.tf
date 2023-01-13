@@ -11,7 +11,7 @@ resource "aws_eip" "web_server_ip" {
 resource "aws_eip_association" "web_server_ip_ass" {
   instance_id = aws_instance.web_server.id
   allocation_id = aws_eip.web_server_ip.id
-  vpc = true
+  #vpc = true
   depends_on = [aws_internet_gateway.igw]
 }
 
